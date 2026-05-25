@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets
+backend/.env
+frontend/.env.local
+
+# Runtime data
+backend/data/sessions.json
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
