@@ -1,16 +1,23 @@
 # Dependencies
 node_modules/
+Golden Response/backend/node_modules/
+Golden Response/frontend/node_modules/
 
 # Environment & secrets
 backend/.env
 frontend/.env.local
+Golden Response/backend/.env
+Golden Response/frontend/.env.local
 
 # Runtime data
 backend/data/sessions.json
+Golden Response/backend/data/sessions.json
 
 # Next.js
 frontend/.next/
 frontend/out/
+Golden Response/frontend/.next/
+Golden Response/frontend/out/
 
 # Logs & OS
 *.log
