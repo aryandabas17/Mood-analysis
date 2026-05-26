@@ -7,6 +7,13 @@ are stored in PROJECT_FILES. Use extract_all() to write them to disk.
 
 from __future__ import annotations
 
+import os
+import sys
+import subprocess
+import threading
+import time
+import webbrowser
+import signal
 from pathlib import Path
 from typing import Dict
 
@@ -59,10 +66,184 @@ def extract_all(output_dir: str = "Golden Response") -> None:
     for rel_path, content in PROJECT_FILES.items():
         target = base / rel_path
         target.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            # Safely handle surrogate pairs (like \ud83d\udce6) before encoding to UTF-8
+            content = content.encode('utf-16', 'surrogatepass').decode('utf-16')
+        except Exception:
+            pass
         target.write_text(content, encoding="utf-8")
 
 
+def check_command_exists(cmd: str) -> bool:
+    """Checks if a command is available on the system path."""
+    import shutil
+    return shutil.which(cmd) is not None
+
+
+def kill_process_tree(proc):
+    """Terminates a process and all its children across Windows and Unix."""
+    if not proc:
+        return
+    try:
+        if os.name == 'nt':
+            # On Windows, kill the process tree forcefully using taskkill
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False
+            )
+        else:
+            # On Unix, terminate process group
+            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+    except Exception:
+        try:
+            proc.terminate()
+        except Exception:
+            pass
+
+
+def run_project(output_dir: str = "Golden Response") -> None:
+    base = Path(output_dir).resolve()
+    
+    # 1. Verify Node.js and npm are installed
+    if not check_command_exists("node") or not check_command_exists("npm"):
+        print("\n\033[91m[Error] Node.js and npm are required to run this project.\033[0m")
+        print("Please install Node.js from https://nodejs.org/ and try again.\n")
+        sys.exit(1)
+        
+    print("\n\033[96m=== Setting up Environment ===\033[0m")
+    
+    # 2. Extract files
+    print("Extracting embedded code files...")
+    extract_all(str(base))
+    
+    # 3. Create backend env file if it doesn't exist
+    backend_dir = base / "backend"
+    backend_env = backend_dir / ".env"
+    backend_env_example = backend_dir / ".env.example"
+    
+    if not backend_env.exists():
+        if backend_env_example.exists():
+            print("Creating backend/.env from .env.example...")
+            content = backend_env_example.read_text(encoding="utf-8")
+            lines = []
+            for line in content.splitlines():
+                if line.startswith("MONGO_URI="):
+                    lines.append("MONGO_URI=mongodb://127.0.0.1:27017/mood_analysis")
+                else:
+                    lines.append(line)
+            # Ensure USE_FILE_DB is true so it doesn't fail if mongo is missing
+            if not any("USE_FILE_DB" in l for l in lines):
+                lines.append("USE_FILE_DB=true")
+            if not any("USE_MEMORY_DB" in l for l in lines):
+                lines.append("USE_MEMORY_DB=false")
+            backend_env.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        else:
+            print("Creating default backend/.env...")
+            backend_env.write_text(
+                "PORT=5001\n"
+                "MONGO_URI=mongodb://127.0.0.1:27017/mood_analysis\n"
+                "USE_MEMORY_DB=false\n"
+                "USE_FILE_DB=true\n"
+                "NODE_ENV=development\n"
+                "CLIENT_URL=http://localhost:3000\n",
+                encoding="utf-8"
+            )
+            
+    # 4. Create frontend env file if it doesn't exist
+    frontend_dir = base / "frontend"
+    frontend_env = frontend_dir / ".env.local"
+    if not frontend_env.exists():
+        print("Creating frontend/.env.local...")
+        frontend_env.write_text("NEXT_PUBLIC_API_URL=http://localhost:5001/api\n", encoding="utf-8")
+
+    # 5. Check and install dependencies
+    backend_node_modules = backend_dir / "node_modules"
+    if not backend_node_modules.exists():
+        print("\033[93mInstalling backend dependencies (this might take a minute)...\033[0m")
+        subprocess.run("npm install", shell=True, cwd=str(backend_dir), check=True)
+        print("Backend dependencies installed.")
+    else:
+        print("Backend dependencies already installed.")
+
+    frontend_node_modules = frontend_dir / "node_modules"
+    if not frontend_node_modules.exists():
+        print("\033[93mInstalling frontend dependencies (this might take a minute)...\033[0m")
+        subprocess.run("npm install", shell=True, cwd=str(frontend_dir), check=True)
+        print("Frontend dependencies installed.")
+    else:
+        print("Frontend dependencies already installed.")
+        
+    print("\n\033[92m=== Starting backend and frontend concurrently ===\033[0m")
+    
+    # 6. Run processes
+    backend_cmd = "node server.js"
+    backend_proc = None
+    frontend_proc = None
+    
+    popen_kwargs = {}
+    if os.name != 'nt':
+        popen_kwargs['preexec_fn'] = os.setsid
+        
+    try:
+        # Start Backend (writing directly to standard streams)
+        print("Starting Cyber-Core Backend Server on port 5001...")
+        backend_proc = subprocess.Popen(
+            backend_cmd,
+            shell=True,
+            cwd=str(backend_dir),
+            **popen_kwargs
+        )
+        
+        # Start Frontend (writing directly to standard streams)
+        print("Starting Next.js Frontend on http://localhost:3000...")
+        frontend_proc = subprocess.Popen(
+            "npm run dev",
+            shell=True,
+            cwd=str(frontend_dir),
+            **popen_kwargs
+        )
+        
+        # 7. Wait a few seconds, then open the browser
+        def open_browser():
+            time.sleep(5)
+            print("\n\033[92m[System] Launching browser to http://localhost:3000...\033[0m\n", flush=True)
+            webbrowser.open("http://localhost:3000")
+            
+        threading.Thread(target=open_browser, daemon=True).start()
+        
+        print("\n\033[92m=== Mood Analysis Project is Running ===\033[0m")
+        print("\033[93mPress Ctrl+C to terminate both servers and stop the program.\033[0m\n", flush=True)
+        
+        # Keep main thread alive monitoring processes
+        while True:
+            be_status = backend_proc.poll()
+            fe_status = frontend_proc.poll()
+            
+            if be_status is not None:
+                print(f"\n\033[91m[System] Backend process exited with code {be_status}\033[0m", flush=True)
+                break
+            if fe_status is not None:
+                print(f"\n\033[91m[System] Frontend process exited with code {fe_status}\033[0m", flush=True)
+                break
+                
+            time.sleep(1)
+            
+    except KeyboardInterrupt:
+        print("\n\033[93m[System] Shutdown signal received (Ctrl+C). Terminating processes...\033[0m", flush=True)
+    finally:
+        print("Stopping backend...", flush=True)
+        kill_process_tree(backend_proc)
+        print("Stopping frontend...", flush=True)
+        kill_process_tree(frontend_proc)
+        print("\033[92m[System] All servers successfully terminated.\033[0m", flush=True)
+
+
 if __name__ == "__main__":
-    extract_all()
-    print(f"Embedded {len(PROJECT_FILES)} files.")
-    print(f"Combined code length: {len(COMBINED_CODE)} characters.")
+    if len(sys.argv) > 1 and sys.argv[1] == "--extract-only":
+        extract_all()
+        print(f"Embedded {len(PROJECT_FILES)} files extracted to Golden Response.")
+    else:
+        run_project()
+
