@@ -1,180 +1,253 @@
-You are a Senior Full Stack AI/ML Developer.
+Prompt
+Context and Role
 
-Build a complete production-ready AI emotion detection web application called Mood Analysis.
+As a Senior Full Stack AI/ML Developer specializing in modern AI-powered web applications, real-time computer vision systems, and scalable full-stack architectures, you are responsible for designing and implementing a complete production-ready AI emotion detection platform called Mood Analysis.
 
-The application should detect human facial emotions in real-time using the webcam and display live emotion predictions with confidence percentage.
+The platform must detect human facial emotions in real-time using the user’s webcam and display live emotion predictions with confidence percentages.
 
-The website must have a modern futuristic UI, smooth animations, responsive design, secure backend architecture, and proper project structure.
+The application should feature a futuristic UI, smooth animations, responsive layouts, secure backend architecture, optimized AI inference, and production-level project structure.
 
-Tech Stack
+Objective
 
-Frontend:
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- React Webcam
-- Axios
-- Recharts
+Develop a complete full-stack AI-powered emotion detection web application that:
 
-Backend:
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- Helmet.js
-- express-rate-limit
-- dotenv
+Detects facial emotions in real-time using webcam input
+Displays live emotion predictions with confidence percentages
+Stores emotion analysis sessions securely in MongoDB
+Provides analytics dashboards and session summaries
+Implements a modern futuristic UI with immersive animations
+Maintains high performance, responsiveness, accessibility, and scalability
+Technology Stack
+Frontend
+Next.js
+TypeScript
+Tailwind CSS
+Framer Motion
+React Webcam
+Axios
+Recharts
+Backend
+Node.js
+Express.js
+MongoDB Atlas
+Mongoose
+Helmet.js
+express-rate-limit
+dotenv
+AI / ML
+face-api.js
+TensorFlow.js
+Core Application Flow
 
-AI/ML:
-- face-api.js
-- TensorFlow.js
+The application should work as follows:
 
-Project Requirements
+User opens the landing page
+User enters their name
+User clicks “Start Mood Analysis”
+Webcam permission is requested
+Camera initializes successfully
+Face detection activates
+Emotion detection runs continuously in real-time
+Predicted emotion appears live
+Confidence percentage updates dynamically
+Emotion logs are securely stored in MongoDB
+User can view emotion history and session summaries
+Emotion Detection Requirements
 
-Create a complete full stack application where:
+The system must detect the following emotions:
 
-1. User opens the landing page
-2. User enters their name
-3. User clicks Start Mood Analysis
-4. Webcam permission opens
-5. Camera starts
-6. Face detection activates
-7. Emotion detection runs in real-time
-8. Predicted emotion appears live
-9. Confidence percentage updates dynamically
-10. Emotion logs are stored in MongoDB
-11. User can view emotion history and session summary
+Happy
+Sad
+Angry
+Neutral
+Fear
+Surprise
+Disgust
 
-Detect these emotions:
-- Happy
-- Sad
-- Angry
-- Neutral
-- Fear
-- Surprise
-- Disgust
+The AI system should:
 
+Detect faces in real-time
+Continuously analyze facial expressions
+Handle no-face scenarios gracefully
+Handle multiple-face detection scenarios
+Optimize inference performance for smooth real-time analysis
 Frontend Requirements
 
-Build a premium futuristic UI with:
-- Dark theme
-- Glassmorphism cards
-- Neon gradients
-- Animated backgrounds
-- Floating glow effects
-- Smooth transitions
-- Framer Motion animations
-- Responsive layout
+Build a premium futuristic interface featuring:
 
-Pages Required
+Dark theme
+Glassmorphism UI cards
+Neon gradients
+Animated backgrounds
+Floating glow effects
+Smooth transitions
+Framer Motion animations
+Responsive layouts
 
+The UI should feel similar to a modern AI SaaS platform.
+
+Required Pages
 1. Landing Page
-- Large Mood Analysis title
-- Subtitle
-- Animated background
-- Start button
 
+Include:
+
+Large animated “Mood Analysis” title
+Subtitle and description
+Animated futuristic background
+Call-to-action start button
+Smooth scroll and entrance animations
 2. Analysis Page
-- Webcam feed
-- Face detection
-- Live emotion result
-- Confidence bar
-- Animated emotion card
-- Error messages
 
+Include:
+
+Live webcam feed
+Real-time face detection
+Live emotion predictions
+Confidence percentage indicators
+Animated emotion cards
+Detection status indicators
+User-friendly error messages
 3. Dashboard Page
-- Current emotion
-- Emotion history
-- Confidence chart using Recharts
-- Session statistics
 
+Include:
+
+Current detected emotion
+Emotion history timeline
+Confidence charts using Recharts
+Session analytics and statistics
+Recent session summaries
+Animation and UI Requirements
+
+Use Framer Motion to implement:
+
+Smooth page transitions
+Scroll-triggered animations
+Fade-ins and staggered reveals
+Hover interactions
+Floating animated elements
+Dynamic motion transitions
+
+Animations must:
+
+Be performant
+Use GPU-friendly properties
+Avoid layout thrashing
+Maintain smooth rendering during webcam analysis
 Backend Requirements
 
 Create secure REST APIs using Express.js.
 
-Required APIs:
-- Start session
-- Save emotion data
-- Get emotion history
-- Download session report
+Required APIs
+Start session API
+Save emotion data API
+Get emotion history API
+Download session report API
+Backend Features
 
 Implement:
-- Proper MVC structure
-- Error handling middleware
-- Rate limiting
-- Environment variables
-- Secure API responses
-- Input validation
 
+Proper MVC architecture
+Secure API responses
+Input validation
+Error handling middleware
+Rate limiting
+Environment variable management
+API sanitization and security protections
 Database Requirements
 
 Store:
-- Username
-- Detected emotion
-- Confidence percentage
-- Timestamp
-- Session duration
 
-AI/ML Requirements
+Username
+Detected emotion
+Confidence percentage
+Timestamp
+Session duration
 
-Use face-api.js with TensorFlow.js for:
-- Face detection
-- Facial expression recognition
-- Real-time webcam analysis
+MongoDB Atlas should be used for persistent storage.
 
-The application should:
-- Detect a face in real-time
-- Predict emotions continuously
-- Work efficiently with optimized performance
-- Handle no-face and multiple-face scenarios
+Security Requirements
 
-Error Handling
+Implement:
 
-Handle:
-- Camera permission denied
-- No face detected
-- Multiple faces detected
-- API failures
-- Database errors
-- AI model loading failures
+Helmet.js security headers
+Express rate limiting
+Environment variable protection
+Input sanitization
+XSS protection
+Secure API validation
+Error Handling Requirements
 
-Show user-friendly animated error messages.
+Gracefully handle:
+
+Camera permission denied
+No face detected
+Multiple faces detected
+AI model loading failures
+API request failures
+Database connection errors
+
+Display animated and user-friendly error messages.
 
 Performance Optimization
 
 Optimize:
-- Webcam rendering
-- AI inference speed
-- API calls
-- State management
-- Bundle size
-- Lazy loading
 
-Accessibility
+Webcam rendering performance
+TensorFlow.js inference speed
+API requests
+State management
+Bundle size
+Lazy loading
+Re-render prevention
+
+Ensure the application performs efficiently on desktop and mobile devices.
+
+Accessibility Requirements
 
 Ensure:
-- Mobile responsiveness
-- Tablet responsiveness
-- Semantic HTML
-- Keyboard accessibility
-- ARIA labels
 
-Project Structure
+Mobile responsiveness
+Tablet responsiveness
+Semantic HTML
+Keyboard accessibility
+ARIA labels
+Accessible color contrast
+Project Structure Requirements
 
 Generate:
-- Complete folder structure
-- Frontend code
-- Backend code
-- API routes
-- Database models
-- Components
-- Hooks
-- Utility functions
-- Environment variables
-- README file
-- Setup instructions
-- Deployment instructions
 
-The final project should look like a modern AI SaaS platform with smooth animations, real-time emotion detection, beautiful UI/UX, secure backend, and production-ready architecture.
+Complete folder structure
+Frontend implementation
+Backend implementation
+API routes
+MongoDB models
+React components
+Custom hooks
+Utility functions
+Middleware
+Environment configuration
+README documentation
+Documentation Requirements
 
+Provide:
+
+Setup instructions
+Installation steps
+Environment variable configuration
+MongoDB Atlas setup
+Development workflow
+Production deployment steps
+Output Requirements
+
+The final project should include:
+
+A fully functional AI emotion detection platform
+Real-time webcam-based emotion analysis
+Beautiful futuristic UI/UX
+Smooth animations and transitions
+Secure backend architecture
+MongoDB session storage
+Emotion analytics dashboard
+Production-ready scalable architecture
+
+The final result should resemble a modern AI SaaS product with immersive UI, real-time AI analysis, optimized performance, and enterprise-level code quality.
