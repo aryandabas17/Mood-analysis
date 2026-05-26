@@ -1,253 +1,300 @@
-Prompt
-Context and Role
+# Prompt
 
-As a Senior Full Stack AI/ML Developer specializing in modern AI-powered web applications, real-time computer vision systems, and scalable full-stack architectures, you are responsible for designing and implementing a complete production-ready AI emotion detection platform called Mood Analysis.
+## Context and Role
 
-The platform must detect human facial emotions in real-time using the user’s webcam and display live emotion predictions with confidence percentages.
+As a Full Stack AI/ML Developer, your task is to build a modern AI-powered web application called **Mood Analysis**.
 
-The application should feature a futuristic UI, smooth animations, responsive layouts, secure backend architecture, optimized AI inference, and production-level project structure.
+The platform should detect human emotions in real-time using the user’s webcam and display live emotion predictions with confidence percentages.
 
-Objective
+The application should feel smooth, modern, and interactive while maintaining production-level architecture, responsive design, secure APIs, and optimized AI performance.
 
-Develop a complete full-stack AI-powered emotion detection web application that:
+The final product should resemble a polished AI SaaS platform with immersive UI, real-time processing, and clean user experience.
 
-Detects facial emotions in real-time using webcam input
-Displays live emotion predictions with confidence percentages
-Stores emotion analysis sessions securely in MongoDB
-Provides analytics dashboards and session summaries
-Implements a modern futuristic UI with immersive animations
-Maintains high performance, responsiveness, accessibility, and scalability
-Technology Stack
-Frontend
-Next.js
-TypeScript
-Tailwind CSS
-Framer Motion
-React Webcam
-Axios
-Recharts
-Backend
-Node.js
-Express.js
-MongoDB Atlas
-Mongoose
-Helmet.js
-express-rate-limit
-dotenv
-AI / ML
-face-api.js
-TensorFlow.js
-Core Application Flow
+---
+
+# Objective
+
+Develop a complete full-stack emotion detection application that:
+
+- Detects facial emotions in real-time using webcam input
+- Displays live emotion predictions and confidence percentages
+- Stores emotion sessions securely in MongoDB
+- Provides emotion history and analytics dashboards
+- Uses smooth animations and modern UI interactions
+- Maintains strong performance, accessibility, and scalability
+
+---
+
+# Technology Stack
+
+## Frontend
+Use:
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- React Webcam
+- Axios
+- Recharts
+
+## Backend
+Use:
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- Helmet.js
+- express-rate-limit
+- dotenv
+
+## AI / ML
+Use:
+- face-api.js
+- TensorFlow.js
+
+---
+
+# Core Application Flow
 
 The application should work as follows:
 
-User opens the landing page
-User enters their name
-User clicks “Start Mood Analysis”
-Webcam permission is requested
-Camera initializes successfully
-Face detection activates
-Emotion detection runs continuously in real-time
-Predicted emotion appears live
-Confidence percentage updates dynamically
-Emotion logs are securely stored in MongoDB
-User can view emotion history and session summaries
-Emotion Detection Requirements
+1. User opens the landing page
+2. User enters their name
+3. User clicks “Start Mood Analysis”
+4. Webcam permission is requested
+5. Camera initializes successfully
+6. Face detection activates automatically
+7. Emotion detection begins in real-time
+8. Predicted emotions appear live on screen
+9. Confidence percentages update dynamically
+10. Emotion data is stored in MongoDB
+11. User can view emotion history and session summaries
 
-The system must detect the following emotions:
+---
 
-Happy
-Sad
-Angry
-Neutral
-Fear
-Surprise
-Disgust
+# Emotion Detection Requirements
+
+The system should detect the following emotions:
+
+- Happy
+- Sad
+- Angry
+- Neutral
+- Fear
+- Surprise
+- Disgust
 
 The AI system should:
+- Detect faces continuously in real-time
+- Analyze facial expressions efficiently
+- Handle situations where no face is detected
+- Handle multiple-face scenarios gracefully
+- Maintain smooth real-time performance during webcam analysis
 
-Detect faces in real-time
-Continuously analyze facial expressions
-Handle no-face scenarios gracefully
-Handle multiple-face detection scenarios
-Optimize inference performance for smooth real-time analysis
-Frontend Requirements
+---
 
-Build a premium futuristic interface featuring:
+# Frontend Requirements
 
-Dark theme
-Glassmorphism UI cards
-Neon gradients
-Animated backgrounds
-Floating glow effects
-Smooth transitions
-Framer Motion animations
-Responsive layouts
+Build a modern futuristic interface featuring:
 
-The UI should feel similar to a modern AI SaaS platform.
+- Dark theme UI
+- Glassmorphism cards
+- Neon gradient effects
+- Animated backgrounds
+- Floating glow effects
+- Smooth transitions
+- Framer Motion animations
+- Fully responsive layouts
 
-Required Pages
-1. Landing Page
+The interface should feel clean, immersive, and visually engaging.
 
-Include:
+---
 
-Large animated “Mood Analysis” title
-Subtitle and description
-Animated futuristic background
-Call-to-action start button
-Smooth scroll and entrance animations
-2. Analysis Page
+# Required Pages
+
+## 1. Landing Page
 
 Include:
+- Large animated “Mood Analysis” title
+- Short subtitle and introduction
+- Animated futuristic background
+- Start button with hover animations
+- Smooth entrance transitions
 
-Live webcam feed
-Real-time face detection
-Live emotion predictions
-Confidence percentage indicators
-Animated emotion cards
-Detection status indicators
-User-friendly error messages
-3. Dashboard Page
+---
+
+## 2. Analysis Page
 
 Include:
+- Live webcam feed
+- Real-time face detection
+- Live emotion predictions
+- Confidence percentage indicators
+- Animated emotion cards
+- Detection status messages
+- Error handling and loading states
 
-Current detected emotion
-Emotion history timeline
-Confidence charts using Recharts
-Session analytics and statistics
-Recent session summaries
-Animation and UI Requirements
+---
+
+## 3. Dashboard Page
+
+Include:
+- Current detected emotion
+- Emotion history timeline
+- Confidence charts using Recharts
+- Session analytics
+- Summary statistics
+
+---
+
+# Animation and UI Requirements
 
 Use Framer Motion to implement:
 
-Smooth page transitions
-Scroll-triggered animations
-Fade-ins and staggered reveals
-Hover interactions
-Floating animated elements
-Dynamic motion transitions
+- Smooth page transitions
+- Fade-in animations
+- Scroll-triggered effects
+- Hover interactions
+- Floating animated UI elements
+- Staggered motion effects
 
-Animations must:
+Animations should:
+- Feel smooth and natural
+- Use GPU-friendly properties
+- Avoid layout thrashing
+- Maintain performance during AI processing
 
-Be performant
-Use GPU-friendly properties
-Avoid layout thrashing
-Maintain smooth rendering during webcam analysis
-Backend Requirements
+---
+
+# Backend Requirements
 
 Create secure REST APIs using Express.js.
 
-Required APIs
-Start session API
-Save emotion data API
-Get emotion history API
-Download session report API
-Backend Features
+## Required APIs
+- Start Session API
+- Save Emotion Data API
+- Get Emotion History API
+- Download Session Report API
+
+## Backend Features
+Implement:
+- Proper MVC architecture
+- Input validation
+- Error handling middleware
+- Secure API responses
+- Environment variable management
+- Rate limiting
+- Request sanitization
+
+---
+
+# Database Requirements
+
+Store the following information in MongoDB Atlas:
+
+- Username
+- Detected emotion
+- Confidence percentage
+- Timestamp
+- Session duration
+
+---
+
+# Security Requirements
 
 Implement:
+- Helmet.js security headers
+- Express rate limiting
+- Environment variable protection
+- Input sanitization
+- XSS protection
+- Secure validation handling
 
-Proper MVC architecture
-Secure API responses
-Input validation
-Error handling middleware
-Rate limiting
-Environment variable management
-API sanitization and security protections
-Database Requirements
+---
 
-Store:
-
-Username
-Detected emotion
-Confidence percentage
-Timestamp
-Session duration
-
-MongoDB Atlas should be used for persistent storage.
-
-Security Requirements
-
-Implement:
-
-Helmet.js security headers
-Express rate limiting
-Environment variable protection
-Input sanitization
-XSS protection
-Secure API validation
-Error Handling Requirements
+# Error Handling Requirements
 
 Gracefully handle:
+- Camera permission denied
+- No face detected
+- Multiple faces detected
+- AI model loading failures
+- API request failures
+- Database connection errors
 
-Camera permission denied
-No face detected
-Multiple faces detected
-AI model loading failures
-API request failures
-Database connection errors
+Display clear and user-friendly error messages throughout the application.
 
-Display animated and user-friendly error messages.
+---
 
-Performance Optimization
+# Performance Optimization
 
 Optimize:
+- Webcam rendering
+- TensorFlow.js inference speed
+- API calls
+- State management
+- Bundle size
+- Lazy loading
+- Unnecessary re-renders
 
-Webcam rendering performance
-TensorFlow.js inference speed
-API requests
-State management
-Bundle size
-Lazy loading
-Re-render prevention
+Ensure the application remains smooth on desktop, tablet, and mobile devices.
 
-Ensure the application performs efficiently on desktop and mobile devices.
+---
 
-Accessibility Requirements
+# Accessibility Requirements
 
 Ensure:
+- Mobile responsiveness
+- Tablet responsiveness
+- Semantic HTML structure
+- Keyboard accessibility
+- ARIA labels
+- Accessible color contrast
 
-Mobile responsiveness
-Tablet responsiveness
-Semantic HTML
-Keyboard accessibility
-ARIA labels
-Accessible color contrast
-Project Structure Requirements
+---
+
+# Project Structure Requirements
 
 Generate:
+- Complete folder structure
+- Frontend source code
+- Backend source code
+- API routes
+- MongoDB models
+- React components
+- Custom hooks
+- Utility functions
+- Middleware
+- Environment variable configuration
+- README documentation
 
-Complete folder structure
-Frontend implementation
-Backend implementation
-API routes
-MongoDB models
-React components
-Custom hooks
-Utility functions
-Middleware
-Environment configuration
-README documentation
-Documentation Requirements
+---
+
+# Documentation Requirements
 
 Provide:
+- Setup instructions
+- Installation guide
+- Environment variable configuration
+- MongoDB Atlas setup
+- Development workflow
+- Deployment instructions
 
-Setup instructions
-Installation steps
-Environment variable configuration
-MongoDB Atlas setup
-Development workflow
-Production deployment steps
-Output Requirements
+---
+
+# Output Requirements
 
 The final project should include:
 
-A fully functional AI emotion detection platform
-Real-time webcam-based emotion analysis
-Beautiful futuristic UI/UX
-Smooth animations and transitions
-Secure backend architecture
-MongoDB session storage
-Emotion analytics dashboard
-Production-ready scalable architecture
+- Real-time facial emotion detection
+- Live confidence tracking
+- Modern futuristic UI/UX
+- Smooth animations and transitions
+- Secure backend architecture
+- MongoDB session storage
+- Emotion analytics dashboard
+- Responsive layouts
+- Optimized AI performance
+- Production-ready scalable architecture
 
-The final result should resemble a modern AI SaaS product with immersive UI, real-time AI analysis, optimized performance, and enterprise-level code quality.
+The finished application should feel like a polished modern AI platform with immersive design, real-time AI interaction, and clean user experience.
